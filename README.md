@@ -12,7 +12,6 @@ Access the hosted application here: **[https://agnezgrace.github.io/Chat-Fiction
 *   **Dual Engine Modes**: Instant switching between **Editor Mode** (for authoring and branching) and **Read Mode** (for interactive reader playback with typing delays).
 *   **Simulated Media Calls**: Integrated voice and video call simulation featuring custom durations, call statuses, and visual ringing feedback.
 *   **Rich Profile & Aesthetic Customization**: Custom avatars, chat wallpapers, online statuses, image attachments (URL or local gallery upload), and interactive custom modals.
-*   **Local-First & Private**: All story data and progress are stored entirely within the client browser (`localStorage`), requiring no backend server.
 
 ## File Structure
 *   `index.html` - App UI structure, modals, brand panel, and header components.
