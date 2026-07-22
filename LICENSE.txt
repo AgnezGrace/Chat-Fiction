@@ -1,0 +1,15 @@
+Copyright (c) 2026 LUNARICA. All rights reserved.
+
+TERMS AND CONDITIONS FOR USE
+
+1. PERMITTED USE:
+You are permitted to access, run, and use this software as hosted on its official website/GitHub Pages for personal or creative story creation and interactive narrative reading.
+
+2. RESTRICTIONS:
+- You may not modify, alter, or adapt the source code.
+- You may not copy, reproduce, redistribute, or republish any part of the source code, branding, or assets.
+- You may not host your own version of this software publicly or commercially.
+- You may not fork this repository to create derivative works or redistribute modified versions.
+
+3. NO WARRANTY:
+The software is provided "as is", without warranty of any kind, express or implied. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability.
