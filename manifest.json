@@ -1,0 +1,17 @@
+{
+  "name": "Chat Fiction",
+  "short_name": "ChatFiction",
+  "description": "Interactive Chat Fiction Creator & Reader",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

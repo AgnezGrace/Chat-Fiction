@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0f172a">
+    <title>Chat Fiction</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container" id="appContainer">
+        
+        <aside class="contacts-panel" id="contactsPanel">
+            <header class="contacts-brand-header">
+                <div class="header-brand">
+                    <img src="logo.png" class="header-logo" alt="Logo">
+                    <div class="header-title">Chat Fiction</div>
+                </div>
+                <button class="icon-btn install-pwa-btn" id="btnInstallPwa" title="Install App" style="display: none;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </button>
+            </header>
+
+            <div class="warning-banner">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="warn-svg">
+                    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                <div class="warn-text">
+                    <strong>Warning:</strong> Using real people's names or photos without written permission is prohibited.
+                </div>
+            </div>
+
+            <div class="contacts-header">
+                <input type="text" id="searchInput" class="search-box" placeholder="Search story/contact...">
+                <div class="contacts-header-actions">
+                    <button class="btn-primary-sm" id="btnNewStory" title="Create New Character">+ New</button>
+                    <button class="btn-secondary-sm" id="btnImportLnrc" title="Import .LNRC File">Import .LNRC</button>
+                    <input type="file" id="fileLnrcInput" accept=".lnrc" style="display:none;">
+                </div>
+            </div>
+
+            <div class="contacts-list" id="contactsList"></div>
+            <div class="empty-search" id="emptySearch">No contacts found</div>
+        </aside>
+
+        <main class="chat-panel" id="chatPanel">
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <button class="btn-back" id="btnBack">&lt;</button>
+                    <div class="chat-user-info">
+                        <div class="avatar" id="activeAvatar">--</div>
+                        <div>
+                            <div class="contact-name" id="activeName">Select Story</div>
+                            <div class="contact-desc" id="activeStatus">Editor Mode</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-header-actions">
+                    <button class="icon-btn" id="btnVoiceCall" title="Voice Call">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                    </button>
+
+                    <button class="icon-btn" id="btnVideoCall" title="Video Call">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                        </svg>
+                    </button>
+
+                    <div class="menu-dropdown-wrapper">
+                        <button class="icon-btn" id="btnMoreMenu" title="Options">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="1"></circle>
+                                <circle cx="12" cy="5" r="1"></circle>
+                                <circle cx="12" cy="19" r="1"></circle>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <button class="dropdown-item" id="menuViewProfile">
+                               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                               View Profile & Details
+                            </button>
+                            <button class="dropdown-item" id="menuEditProfile">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                Edit Character Profile
+                            </button>
+                            <button class="dropdown-item" id="menuWallpaper">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                Change Wallpaper
+                            </button>
+                            <button class="dropdown-item" id="menuToggleMode">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                <span id="modeToggleLabel">Read Mode</span>
+                            </button>
+                            <button class="dropdown-item" id="menuExport">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                Export Character (.LNRC)
+                            </button>
+                            <button class="dropdown-item danger" id="menuLockCharacter">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                Lock Character Permanently
+                            </button>
+                            <div class="dropdown-divider" id="menuDivider"></div>
+                            <button class="dropdown-item danger" id="menuResetProgress">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                                Restart Story
+                            </button>
+                            <button class="dropdown-item danger" id="menuDeleteContact">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                Delete Character
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="empty-chat">Select a contact to start creating or reading a story.</div>
+            </div>
+
+            <div class="play-choices-container" id="playChoicesContainer"></div>
+
+            <div class="editor-controls" id="editorControls">
+                <div class="editor-row">
+                    <button class="btn-dock" id="btnToggleEditMode">Read Mode</button>
+                    <button class="btn-dock danger" id="btnResetFlow">Restart Flow</button>
+                    <button class="btn-dock icon-dock" id="btnTreeBottom" title="Node Graph Map">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="4" r="3"/><circle cx="6" cy="14" r="3"/><circle cx="18" cy="14" r="3"/><line x1="12" y1="7" x2="6" y2="11"/><line x1="12" y1="7" x2="18" y2="11"/></svg>
+                    </button>
+                </div>
+                <div class="editor-row" id="editAddButtonsRow">
+                    <button class="btn-dock-sm" id="btnAddCharMsg">+ Character</button>
+                    <button class="btn-dock-sm" id="btnAddUserMsg">+ User (Branch)</button>
+                    <button class="btn-dock-sm" id="btnAddPauseMsg">+ Pause</button>
+                    <button class="btn-dock-sm" id="btnAddImgMsg">+ Image</button>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <div class="modal-overlay" id="modalViewProfile">
+        <div class="modal-card">
+            <div class="center-text">
+                <div class="view-profile-avatar" id="viewProfileAvatar">--</div>
+                <h3 class="modal-title" id="viewProfileName">Character Name</h3>
+                <p class="view-profile-sub" id="viewProfileSub">Subtitle</p>
+                <div class="view-profile-badge" id="viewProfilePermissionBadge">Locked Character</div>
+            </div>
+            
+            <div class="meta-info-box">
+                <div class="meta-item">
+                    <span class="meta-label">Created By:</span>
+                    <span class="meta-value" id="viewProfileCreator">-</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Created Date:</span>
+                    <span class="meta-value" id="viewProfileDate">-</span>
+                </div>
+                <div class="form-group" style="margin-top: 10px; margin-bottom: 0;">
+                    <label>Description:</label>
+                    <div class="desc-text-box" id="viewProfileDesc">No description available.</div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-modal-submit w-100" id="btnCloseViewProfile">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalLockForm">
+        <div class="modal-card">
+            <h3 class="modal-title">Lock Character Permanently</h3>
+            <p class="alert-message" style="text-align: left; margin-bottom: 1rem;">Provide creator info and permissions before locking permanently.</p>
+
+            <div class="form-group">
+                <label>Creator Name</label>
+                <input type="text" id="inputLockCreator" class="form-control" placeholder="Your name or pseudonym">
+            </div>
+
+            <div class="form-group">
+                <label>Creation Date</label>
+                <input type="date" id="inputLockDate" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Story Description</label>
+                <textarea id="inputLockDesc" class="form-control textarea" rows="3" placeholder="Write a brief background story..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Player Permissions</label>
+                <select id="selectLockPermission" class="form-control">
+                    <option value="none">1. No Editing Allowed (Play Only)</option>
+                    <option value="profile_only">2. Profile Picture & Subtitle Editing Only</option>
+                    <option value="full">3. Full Edit Allowed (Node & Story Editing)</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" id="btnCancelLockForm">Cancel</button>
+                <button class="btn-modal-submit" id="btnSaveLockForm">Lock Permanently</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalNewCharacter">
+        <div class="modal-card">
+            <h3 class="modal-title">Create New Character</h3>
+            <div class="form-group">
+                <label>Character Name</label>
+                <input type="text" id="inputNewName" class="form-control" placeholder="Example: Maya">
+            </div>
+            <div class="form-group">
+                <label>Subtitle / Role</label>
+                <input type="text" id="inputNewSub" class="form-control" placeholder="Example: Childhood Friend">
+            </div>
+            <div class="form-group">
+                <label>First Opening Message</label>
+                <input type="text" id="inputNewFirstMsg" class="form-control" placeholder="Hello! Welcome to Chat Fiction.">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" id="btnCloseNewCharacter">Cancel</button>
+                <button class="btn-modal-submit" id="btnSaveNewCharacter">Create Character</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalProfile">
+        <div class="modal-card">
+            <h3 class="modal-title">Character Profile</h3>
+            <div class="form-group">
+                <label>Character Name</label>
+                <input type="text" id="inputProfileName" class="form-control" placeholder="Character name...">
+            </div>
+            <div class="form-group">
+                <label>Subtitle / Status</label>
+                <input type="text" id="inputProfileSub" class="form-control" placeholder="Sub-info...">
+            </div>
+            <div class="form-group">
+                <label>Header Status</label>
+                <input type="text" id="inputProfileOnline" class="form-control" placeholder="Online / Typing...">
+            </div>
+            <div class="form-group">
+                <label>Profile Picture (Gallery / URL)</label>
+                <div class="row-flex">
+                    <div class="avatar-preview" id="profileAvatarPreview">--</div>
+                    <button class="btn-modal-cancel" id="btnSelectAvatarSrc">Select Image</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Enable Voice & Video Calls</label>
+                <select id="selectEnableCalls" class="form-control">
+                    <option value="true">Enabled</option>
+                    <option value="false">Disabled</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" id="btnCloseProfile">Cancel</button>
+                <button class="btn-modal-submit" id="btnSaveProfile">Save Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalWallpaper">
+        <div class="modal-card">
+            <h3 class="modal-title">Change Chat Wallpaper</h3>
+            <div class="form-group">
+                <label>Wallpaper Preview</label>
+                <div class="wp-preview" id="wpPreviewBox">No Wallpaper</div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" id="btnCloseWallpaper">Cancel</button>
+                <button class="btn-modal-cancel" id="btnSelectWpSrc">Select Image</button>
+                <button class="btn-modal-submit" id="btnSaveWallpaper">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalTree">
+        <div class="modal-card large">
+            <div class="modal-header-flex">
+                <h3 class="modal-title">Node Branch Structure Map</h3>
+                <button class="icon-btn-close" id="btnCloseTree">&times;</button>
+            </div>
+            <div class="tree-container" id="treeContainer"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalCallSim">
+        <div class="modal-card call-card">
+            <div class="call-avatar-wrap">
+                <div class="pulse-ring"></div>
+                <div class="call-avatar" id="callSimAvatar">--</div>
+            </div>
+            <h3 class="call-name" id="callSimName">Character</h3>
+            <p class="call-status" id="callSimStatus">Calling...</p>
+            <div class="call-actions">
+                <button class="btn-call-end" id="btnEndCallSim">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" transform="rotate(135 12 12)"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalCustomConfirm">
+        <div class="modal-card alert-card">
+            <div class="alert-icon" id="confirmSvgWrap"></div>
+            <h3 class="modal-title" id="confirmTitle">Confirm</h3>
+            <p class="alert-message" id="confirmDesc">Confirmation details.</p>
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" id="btnConfirmNo">No</button>
+                <button class="btn-modal-submit" id="btnConfirmYes">Yes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalCustomAlert">
+        <div class="modal-card alert-card">
+            <div class="alert-icon" id="alertSvgWrap"></div>
+            <h3 class="modal-title" id="alertTitle">Notice</h3>
+            <p class="alert-message" id="alertDesc">Notice text.</p>
+            <div class="modal-actions">
+                <button class="btn-modal-submit" id="btnAlertOk">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalCustomPrompt">
+        <div class="modal-card">
+            <h3 class="modal-title" id="promptTitle">Text Input</h3>
+            <div class="form-group">
+                <textarea id="promptInputText" class="form-control textarea" rows="3" placeholder="Type text..."></textarea>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" id="btnPromptCancel">Cancel</button>
+                <button class="btn-modal-submit" id="btnPromptSave">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOptionPicker">
+        <div class="modal-card">
+            <h3 class="modal-title" id="pickerTitle">Select Option</h3>
+            <div class="picker-list" id="pickerList"></div>
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" id="btnPickerCancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalImageSource">
+        <div class="modal-card center-text">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" class="center-svg"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <h3 class="modal-title" id="imgSourceTitle">Select Image Source</h3>
+            <p class="alert-message">Choose an image directly via URL or upload from your local device gallery.</p>
+            <div class="modal-actions col">
+                <button class="btn-modal-submit w-100" id="btnImgSrcLink">Direct Image Link (URL)</button>
+                <button class="btn-modal-cancel w-100" id="btnImgSrcGallery">Upload from Gallery</button>
+                <button class="btn-modal-cancel w-100" id="btnImgSrcCancel">Cancel</button>
+            </div>
+            <input type="file" id="fileImageInput" accept="image/*" style="display:none;">
+        </div>
+    </div>
+
+    <div class="modal-overlay image-preview-overlay" id="modalFullscreenImage">
+        <button class="btn-close-fullscreen" id="btnCloseFullscreen">&times;</button>
+        <img id="fullscreenImgTag" src="" alt="Full Image">
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
