@@ -16,8 +16,7 @@ Access the hosted application here: **[https://agnezgrace.github.io/Chat-Fiction
 
 ## File Structure
 *   `index.html` - App UI structure, modals, brand panel, and header components.
-*   `style.css` - Responsive layout, dark/light interface accents, and mobile view optimizations.
-*   `app.js` - Core story graph engine, AES encryption/decryption, state management, and UI logic.
+*   `style.css` - Responsive layout, dark/light interface accents, and mobile view optimizations. 
 *   `sw.js` - Service Worker for offline asset caching and PWA functionality.
 *   `manifest.json` - Web App Manifest defining installation parameters, icons, and display modes.
 *   `logo.png` - Primary app identity icon (512x512 PNG).
