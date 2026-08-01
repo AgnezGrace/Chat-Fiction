@@ -10,13 +10,11 @@
 
     <preference name="ScrollEnabled" value="true" />
     <preference name="BackupWebStorage" value="none" />
-    <preference name="SplashMaintainAspectRatio" value="true" />
-    <preference name="FadeSplashScreenDuration" value="300" />
-    <preference name="SplashShowOnlyFirstTime" value="false" />
+    <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash.png" />
+    <preference name="AndroidWindowSplashScreenBackground" value="#0f172a" />
     <preference name="SplashScreenDelay" value="3000" />
 
     <platform name="android">
         <icon src="res/icon.png" />
-        <splash src="res/splash.png" />
     </platform>
 </widget>
