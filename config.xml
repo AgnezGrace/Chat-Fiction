@@ -10,11 +10,12 @@
 
     <preference name="ScrollEnabled" value="true" />
     <preference name="BackupWebStorage" value="none" />
-    <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash.png" />
-    <preference name="AndroidWindowSplashScreenBackground" value="#0f172a" />
+    <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/transparent.png" />
+    <preference name="AndroidWindowSplashScreenBackground" value="@drawable/splash_bg" />
     <preference name="SplashScreenDelay" value="3000" />
 
     <platform name="android">
         <icon src="res/icon.png" />
+        <resource-file src="res/splash.png" target="app/src/main/res/drawable/splash_bg.png" />
     </platform>
 </widget>
