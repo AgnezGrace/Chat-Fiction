@@ -52,7 +52,7 @@ jobs:
           cp -r dist/* www/
           echo "Downloading HD Icon and Splash Screen from direct raw links..."
           curl -sSL "https://raw.githubusercontent.com/AgnezGrace/Chat-Fiction/main/logo.png" -o res/icon.png
-          curl -sSL "https://raw.githubusercontent.com/AgnezGrace/Chat-Fiction/main/splash.png" -o res/splash.png
+          curl -sSL "https://raw.githubusercontent.com/AgnezGrace/Chat-Fiction/main/logo.png" -o res/splash.png
 
       - name: Install Cordova CLI & Build Android APK
         env:
