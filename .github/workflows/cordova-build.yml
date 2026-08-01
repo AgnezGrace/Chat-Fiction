@@ -52,7 +52,8 @@ jobs:
           cp -r dist/* www/
           echo "Downloading HD Icon and Splash Screen from direct raw links..."
           curl -sSL "https://raw.githubusercontent.com/AgnezGrace/Chat-Fiction/main/logo.png" -o res/icon.png
-          curl -sSL "https://raw.githubusercontent.com/AgnezGrace/Chat-Fiction/main/logo.png" -o res/splash.png
+          curl -sSL "https://raw.githubusercontent.com/AgnezGrace/Chat-Fiction/main/splash.png" -o res/splash.png
+          echo "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" | base64 -d > res/transparent.png
 
       - name: Install Cordova CLI & Build Android APK
         env:
@@ -60,6 +61,8 @@ jobs:
         run: |
           npm install -g cordova
           cordova platform add android@12.0.1 --no-telemetry
+          mkdir -p platforms/android/app/src/main/res/drawable
+          cp res/splash.png platforms/android/app/src/main/res/drawable/splash_bg.png
           cordova build android --debug --no-telemetry
 
       - name: Upload APK Artifact
