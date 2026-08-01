@@ -22,6 +22,11 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
+      - name: Set up Gradle 8.1.1
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.1.1'
+
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
@@ -45,19 +50,16 @@ jobs:
         run: |
           mkdir -p www res
           cp -r dist/* www/
-          echo "Ensuring package.json is compatible with Cordova CommonJS CLI..."
-          node -e 'const fs=require("fs"); const p=JSON.parse(fs.readFileSync("./package.json")); delete p.type; fs.writeFileSync("./package.json", JSON.stringify(p, null, 2));'
           echo "Downloading HD Icon and Splash Screen from direct raw links..."
           curl -sSL "https://raw.githubusercontent.com/AgnezGrace/Chat-Fiction/main/logo.png" -o res/icon.png
           curl -sSL "https://raw.githubusercontent.com/AgnezGrace/Chat-Fiction/main/splash.png" -o res/splash.png
 
       - name: Install Cordova CLI & Build Android APK
+        env:
+          CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL: "https://services.gradle.org/distributions/gradle-8.1.1-bin.zip"
         run: |
           npm install -g cordova
           cordova platform add android@12.0.1 --no-telemetry
-          echo "Patching Gradle XmlParser compatibility for Groovy 3 / JDK 17..."
-          find platforms/android -name "*.gradle" -exec sed -i 's/new XmlParser(/new groovy.xml.XmlParser(/g' {} +
-          find platforms/android -name "*.gradle" -exec sed -i 's/new XmlSlurper(/new groovy.xml.XmlSlurper(/g' {} +
           cordova build android --debug --no-telemetry
 
       - name: Upload APK Artifact
