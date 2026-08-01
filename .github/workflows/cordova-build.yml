@@ -1,0 +1,60 @@
+name: Build Cordova Android APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build-apk:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java JDK 11
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Node Dependencies
+        run: npm ci || npm install
+
+      - name: Build Web Application
+        run: npm run build
+
+      - name: Prepare Cordova Assets & Direct HD Icon & Splash Screen
+        run: |
+          mkdir -p www res
+          cp -r dist/* www/
+          echo "Ensuring package.json is compatible with Cordova CommonJS CLI..."
+          node -e 'const fs=require("fs"); const p=JSON.parse(fs.readFileSync("./package.json")); delete p.type; fs.writeFileSync("./package.json", JSON.stringify(p, null, 2));'
+          echo "Downloading HD Icon and Splash Screen from direct raw links..."
+          curl -sSL "https://raw.githubusercontent.com/AgnezGrace/Chat-Fiction/main/logo.png" -o res/icon.png
+          curl -sSL "https://raw.githubusercontent.com/AgnezGrace/Chat-Fiction/main/splash.png" -o res/splash.png
+
+      - name: Install Cordova CLI & Build Android APK
+        run: |
+          npm install -g cordova
+          cordova platform add android@12.0.1 --no-telemetry
+          cordova build android --debug --no-telemetry
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Chat-Fiction-APK
+          path: platforms/android/app/build/outputs/apk/debug/app-debug.apk
+
